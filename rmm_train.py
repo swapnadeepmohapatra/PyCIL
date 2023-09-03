@@ -21,7 +21,6 @@ import os
 import numpy as np
 import random
 
-
 class CILEnv:
     def __init__(self, args) -> None:
         self._args = copy.deepcopy(args)
@@ -65,8 +64,8 @@ class CILEnv:
         return np.array([self.get_task_size(0) / 100, 0]), None, False, info
 
     def step(self, action):
-        self.model._m_rate_list.append(action[0])
-        self.model._c_rate_list.append(action[1])
+        #self.model._m_rate_list.append(action[0])
+        #self.model._c_rate_list.append(action[1])
         self.model.incremental_train(self.data_manager)
         cnn_accy, nme_accy = self.model.eval_task()
         self.model.after_task()
