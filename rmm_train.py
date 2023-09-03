@@ -25,7 +25,7 @@ class CILEnv:
     def __init__(self, args) -> None:
         self._args = copy.deepcopy(args)
         self.settings = [(50, 2), (50, 5), (50, 10), (50, 20), (10, 10), (20, 20), (5, 5)]
-        # self.settings = [(5,5)] #  Debug
+        self.settings = [(5,5)] #  Debug
         self._args["init_cls"], self._args["increment"] = self.settings[np.random.randint(len(self.settings))]
         self.data_manager = DataManager(
             self._args["dataset"],
@@ -64,8 +64,8 @@ class CILEnv:
         return np.array([self.get_task_size(0) / 100, 0]), None, False, info
 
     def step(self, action):
-        #self.model._m_rate_list.append(action[0])
-        #self.model._c_rate_list.append(action[1])
+        self.model._m_rate_list.append(action[0])
+        self.model._c_rate_list.append(action[1])
         self.model.incremental_train(self.data_manager)
         cnn_accy, nme_accy = self.model.eval_task()
         self.model.after_task()

@@ -32,6 +32,9 @@ class Finetune(BaseLearner):
     def __init__(self, args):
         super().__init__(args)
         self._network = IncrementalNet(args, False)
+        self._args = args
+        self._m_rate_list = args.get("m_rate_list", [])
+        self._c_rate_list = args.get("c_rate_list", [])
 
     def after_task(self):
         self._known_classes = self._total_classes
